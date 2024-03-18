@@ -35,11 +35,13 @@ namespace Business.Concrete
             return createdProductResponse;
         }
 
-        public async Task<IPaginate<GetListProductResponse>> GetListAsync()
+        public async Task<IPaginate<GetListProductResponse>> GetListAsync(PageRequest pageRequest)
         {
             // return await _productDal.GetListAsync();
             var data =await _productDal.GetListAsync(
-                 include: p => p.Include(p => p.Category)
+                 include: p => p.Include(p => p.Category),
+                 index: pageRequest.PageIndex,
+                 size: pageRequest.PageSize
                 );
             var result = _mapper.Map<Paginate<GetListProductResponse>>(data); 
             return result;
