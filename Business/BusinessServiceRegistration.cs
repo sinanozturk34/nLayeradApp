@@ -3,6 +3,7 @@ using Business.Abstracts;
 using Business.Concrete;
 using Business.Concretes;
 using Business.Rules;
+using Core.Business.Rules;
 using DataAccess.Abstracts;
 using DataAccess.Concretes;
 using DataAccess.Contexts;
@@ -24,10 +25,30 @@ namespace Business
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+            services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
+
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICategoryService, CategoryManager>();
-            services.AddScoped<CategoryBusinessRules>();
-            services.AddScoped<ProductBusinessRules>();
+          //  services.AddScoped<CategoryBusinessRules>();
+          //  services.AddScoped<ProductBusinessRules>();
+            return services;
+        }
+        //------------------------application services registration
+
+        public static IServiceCollection AddSubClassesOfType(
+           this IServiceCollection services,
+           Assembly assembly,
+           Type type,
+           Func<IServiceCollection, Type, IServiceCollection>? addWithLifeCycle = null
+       )
+        {
+            var types = assembly.GetTypes().Where(t => t.IsSubclassOf(type) && type != t).ToList();
+            foreach (var item in types)
+                if (addWithLifeCycle == null)
+                    services.AddScoped(item);
+
+                else
+                    addWithLifeCycle(services, type);
             return services;
         }
     }
