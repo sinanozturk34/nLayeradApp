@@ -27,6 +27,7 @@ namespace Business
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICategoryService, CategoryManager>();
             services.AddScoped<CategoryBusinessRules>();
+            services.AddScoped<ProductBusinessRules>();
             return services;
         }
     }

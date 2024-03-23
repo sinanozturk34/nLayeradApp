@@ -1,4 +1,5 @@
-﻿using Core.Business.Rules;
+﻿using Business.Messages;
+using Core.Business.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using DataAccess.Abstracts;
 using System;
@@ -23,7 +24,7 @@ namespace Business.Rules
 
             if (result.Count >=10)
             {
-                throw new BusinessException("Kategori sayısı max 10 olmalı");
+                throw new BusinessException(BusinessMessages.CategoryLimit);
             }
 
         }
