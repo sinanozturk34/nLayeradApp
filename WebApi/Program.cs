@@ -1,4 +1,5 @@
 using Business;
+using Core.CrossCuttingConcerns.Exceptions.Extensions;
 using DataAccess;
 
 
@@ -24,6 +25,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//-------------------------------------exception
+
+app.ConfigureCustomExceptionMiddleware();
+
+//-------------------------------------
 
 app.UseAuthorization();
 
