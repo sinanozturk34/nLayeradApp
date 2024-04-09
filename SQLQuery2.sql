@@ -1,0 +1,1 @@
+﻿update customers set CreatedDate = '01.01.2003'

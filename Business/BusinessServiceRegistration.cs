@@ -29,8 +29,9 @@ namespace Business
 
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICategoryService, CategoryManager>();
-          //  services.AddScoped<CategoryBusinessRules>();
-          //  services.AddScoped<ProductBusinessRules>();
+            services.AddScoped<ICustomerService, CustomerManager>();
+            //  services.AddScoped<CategoryBusinessRules>();
+            //  services.AddScoped<ProductBusinessRules>();
             return services;
         }
         //------------------------application services registration
